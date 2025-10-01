@@ -1,0 +1,30 @@
+services:
+  windmill:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://postgres:windmill@postgres:5432/windmill
+      - RUST_LOG=debug
+      - DISABLE_SERVER=false
+      - HOME=/home/windmill
+      - PIP_CACHE_DIR=/home/windmill/.cache/pip
+    depends_on:
+      - postgres
+    volumes:
+      - .:/app/project
+      - ./windmill-home:/home/windmill
+    user: "1000:1000"
+
+  postgres:
+    image: postgres:16
+    environment:
+      - POSTGRES_DB=windmill
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=windmill
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
