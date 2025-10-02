@@ -28,11 +28,14 @@
        - Corrected script indentation and ensured `load_dotenv('/app/project/.env')` for reliable variable access.
      - **Success (2025-09-29)**: Ran `youtube_crawler_script` successfully, outputting `{"status": "Fetched and stored 5 videos"}`. Confirmed environment variables loaded correctly in container via `python3 -c` test.
 
-     ### Next Steps
-     - **Verify Supabase Data**: Check `raw_data` table for 5 records (`url`, `title`, `source=YouTube`).
-     - **Flows Setup**: Create or verify `data_collection` workflow, referencing `youtube_crawler_script`.
-     - **Scheduling**: Set daily schedule at 04:00 (Asia/Taipei) for `data_collection`.
-     - **Automation**: Ensure all services (Windmill, Postgres) auto-start on laptop reboot.
+### Workflow and Scheduling (Round 48-49, 2025-09-30)
+- **data_collection Workflow**: Fixed `DefaultCredentialsError` in `data_collection` by ensuring correct reference to `u/admin/youtube_crawler_script` and proper environment variable loading (`YOUTUBE_API_KEY`, `SUPABASE_URL`, `SUPABASE_KEY`).
+- **Success**: Ran `data_collection` workflow successfully, outputting `{"status": "Fetched and stored 5 videos"}`.
+- **Scheduling**: Set daily schedule at 04:00 (Asia/Taipei) for `data_collection`.
+- **Next Steps**:
+  - Verify Supabase `raw_data` table for correct data storage.
+  - Confirm daily schedule execution.
+  - Ensure auto-start on laptop reboot (configured in Round 46).
 
      ## Environment Details
      - **OS**: Ubuntu 24.04+
