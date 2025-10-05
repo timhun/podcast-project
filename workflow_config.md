@@ -1,0 +1,11 @@
+# Podcast Data Collection Workflow
+- **Name**: Podcast_Data_Collection
+- **Steps**:
+  - Python Script: youtube_crawler.py (fetches 5 YouTube videos)
+- **Schedule**: Daily at 04:00
+- **Environment Variables** (set in Workspace > default > Variables):
+  - u/timoneway/SUPABASE_URL: https://aynxwbozwlftwurmylkv.supabase.co
+  - u/timoneway/SUPABASE_KEY: <redacted>
+  - u/timoneway/YOUTUBE_API_KEY: <redacted>
+- **Status**: Successfully tested, stores 5 videos in Supabase raw_data table
+- **Fixes**: Updated to use wmill.get_variable for variable access
