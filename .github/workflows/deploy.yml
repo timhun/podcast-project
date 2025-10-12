@@ -1,0 +1,29 @@
+name: Deploy to Windmill
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy Scripts and Flow to Windmill
+        run: |
+          # 部署 generate_podcast_script.py
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.WINDMILL_TOKEN }}" \
+            -H "Content-Type: application/octet-stream" \
+            --data-binary @generate_podcast_script.py \
+            http://35.184.42.36:8000/api/w/admins/scripts/u/timoneway/generate_podcast_script
+          # 部署 send_notification.py
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.WINDMILL_TOKEN }}" \
+            -H "Content-Type: application/octet-stream" \
+            --data-binary @send_notification.py \
+            http://35.184.42.36:8000/api/w/admins/scripts/u/timoneway/send_notification
+          # 部署 daily_podcast_with_notification.json
+          curl -X POST \
+            -H "Authorization: Bearer ${{ secrets.WINDMILL_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            --data @daily_podcast_with_notification.json \
+            http://35.184.42.36:8000/api/w/admins/flows/u/timoneway/daily_podcast_with_notification
