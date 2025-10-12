@@ -2,6 +2,7 @@ import smtplib
 from email.mime.text import MIMEText
 import wmill
 from datetime import datetime, UTC
+from email.mime.multipart import MIMEMultipart
 
 def main(script_result: dict) -> dict:
     smtp_server = wmill.get_variable("u/timoneway/SMTP_SERVER") or "smtp.gmail.com"
@@ -14,10 +15,16 @@ def main(script_result: dict) -> dict:
         raise RuntimeError(f"Missing SMTP environment variables: {[k for k, v in {'SMTP_USER': smtp_user, 'SMTP_PASSWORD': smtp_password, 'RECIPIENT_EMAIL': recipient_email}.items() if not v]}")
 
     script_content = script_result.get('script', 'No script generated')
-    msg = MIMEText(f"New Podcast Script Generated\n\n{script_content}\n\nStatus: {script_result.get('status', 'Unknown')}")
+    msg = MIMEMultipart('alternative')
+    #msg = MIMEText(f"New Podcast Script Generated\n\n{script_content}\n\nStatus: {script_result.get('status', 'Unknown')}")
     msg["Subject"] = f"Podcast Script Run - {datetime.now(UTC).isoformat()}"
     msg["From"] = smtp_user
     msg["To"] = recipient_email
+
+    text = f"New Podcast Script Generated\n\n{script_content}\n\nStatus: {script_result.get('status', 'Unknown')}"
+    html = f"""<html><body><h2>New Podcast Script Generated</h2><pre>{script_content}</pre><p><b>Status:</b> {script_result.get('status', 'Unknown')}</p></body></html>"""
+    msg.attach(MIMEText(text, 'plain'))
+    msg.attach(MIMEText(html, 'html'))
 
     try:
         with smtplib.SMTP(smtp_server, smtp_port) as server:
