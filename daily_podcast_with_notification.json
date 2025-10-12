@@ -1,0 +1,39 @@
+{
+    "summary": "daily_podcast_with_notification",
+    "description": "",
+    "value": {
+        "modules": [
+            {
+                "id": "a",
+                "value": {
+                    "path": "u/timoneway/generate_podcast_script",
+                    "type": "script",
+                    "input_transforms": {}
+                },
+                "summary": "",
+                "continue_on_error": false
+            },
+            {
+                "id": "b",
+                "value": {
+                    "path": "u/timoneway/send_notification",
+                    "type": "script",
+                    "input_transforms": {
+                        "script_result": {
+                            "expr": "results.a",
+                            "type": "javascript"
+                        }
+                    }
+                },
+                "summary": "",
+                "continue_on_error": false
+            }
+        ]
+    },
+    "schema": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "properties": {},
+        "required": [],
+        "type": "object"
+    }
+}
