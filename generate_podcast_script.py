@@ -25,13 +25,14 @@ if not all([SUPABASE_URL, SUPABASE_KEY, GROQ_API_KEY]):
 
 client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-def build_prompt(videos: list[dict]) -> str:
+def build_prompt(videos: list[dict], market_data: dict) -> str:
     """Create the user prompt from the recent YouTube videos."""
     prompt = ("Create a 2-minute podcast script summarizing the following YouTube videos about 'investment QQQ' for beginner investors. "
               "Use a friendly, engaging tone and structure the script with an introduction, key insights from each video, and a motivational closing. "
-              "Include video titles and key takeaways:\n"
+              "Include video titles and key takeaways:\n")
     for video in videos:
         prompt += f"- Title: {video.get('title', 'Unknown')}\n  URL: {video.get('url', '#')}\n"
+    prompt += f"\nRecent QQQ Price: {market_data.get('Time Series (Daily)', {}).get('2025-10-11', {}).get('4. close', 'N/A')}\n"
     prompt += ("\nEnsure the script is concise, avoids jargon, and inspires listeners to explore QQQ investments.")
     return prompt
 
@@ -58,6 +59,13 @@ def call_groq_api(prompt: str) -> dict:
         logger.error(error_message)
         raise requests.exceptions.HTTPError(error_message)
 
+def fetch_market_data():
+    import requests
+    api_key = wmill.get_variable("u/timoneway/ALPHA_VANTAGE_API_KEY")
+    url = f"https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=QQQ&apikey={api_key}"
+    response = requests.get(url)
+    return response.json()
+
 def main() -> dict:
     try:
         videos = client.table("raw_data")\
@@ -70,7 +78,8 @@ def main() -> dict:
             raise ValueError("No data found in raw_data table")
 
         logger.info(f"Fetched {len(videos)} videos")
-        prompt = build_prompt(videos)
+        market_data = fetch_market_data()  # 添加調用
+        prompt = build_prompt(videos, market_data)
 
         response_json = call_groq_api(prompt)
         script = response_json.get("choices", [{}])[0].get("message", {}).get("content", "")
@@ -92,7 +101,3 @@ def main() -> dict:
     except Exception as exc:  # pragma: no cover
         logger.exception("Failed to generate podcast script")
         return {"status": "Error", "error": str(exc)}
-
-if __name__ == "__main__":  # pragma: no cover
-    result = main()
-    print(result)
