@@ -27,9 +27,9 @@
                 }
             },
             {
-                "id": "b",
+                "id": "d",
                 "value": {
-                    "path": "u/timoneway/send_notification",
+                    "path": "u/timoneway/generate_rss",
                     "type": "script",
                     "is_trigger": false,
                     "input_transforms": {
@@ -45,12 +45,16 @@
                 }
             },
             {
-                "id": "d",
+                "id": "b",
                 "value": {
-                    "path": "u/timoneway/generate_rss",
+                    "path": "u/timoneway/send_notification",
                     "type": "script",
                     "is_trigger": false,
                     "input_transforms": {
+                        "rss_result": {
+                            "expr": "results.d",
+                            "type": "javascript"
+                        },
                         "audio_result": {
                             "expr": "results.c",
                             "type": "javascript"
