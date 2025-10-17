@@ -1,39 +1,39 @@
 {
-    "summary": "daily_podcast_with_notification",
-    "description": "",
+    "summary": "",
     "value": {
         "modules": [
             {
                 "id": "a",
                 "value": {
-                    "path": "u/timoneway/generate_podcast_script",
                     "type": "script",
-                    "input_transforms": {}
-                },
-                "summary": "",
-                "continue_on_error": false
+                    "path": "u/timoneway/generate_podcast_script",
+                    "input_transforms": {},
+                    "is_trigger": false
+                }
             },
             {
                 "id": "b",
                 "value": {
-                    "path": "u/timoneway/send_notification",
                     "type": "script",
+                    "path": "u/timoneway/send_notification",
                     "input_transforms": {
                         "script_result": {
-                            "expr": "results.a",
-                            "type": "javascript"
+                            "type": "javascript",
+                            "expr": "results.a"
                         }
-                    }
+                    },
+                    "is_trigger": false
                 },
-                "summary": "",
                 "continue_on_error": false
             }
-        ]
+        ],
+        "same_worker": false
     },
     "schema": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "properties": {},
         "required": [],
-        "type": "object"
+        "type": "object",
+        "order": []
     }
 }
