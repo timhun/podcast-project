@@ -1,33 +1,68 @@
 {
     "summary": "",
+    "description": "",
     "value": {
         "modules": [
             {
                 "id": "a",
                 "value": {
-                    "type": "script",
                     "path": "u/timoneway/generate_podcast_script",
-                    "input_transforms": {},
-                    "is_trigger": false
+                    "type": "script",
+                    "is_trigger": false,
+                    "input_transforms": {}
+                }
+            },
+            {
+                "id": "c",
+                "value": {
+                    "path": "u/timoneway/generate_podcast_audio",
+                    "type": "script",
+                    "is_trigger": false,
+                    "input_transforms": {
+                        "script_result": {
+                            "expr": "results.a",
+                            "type": "javascript"
+                        }
+                    }
                 }
             },
             {
                 "id": "b",
                 "value": {
-                    "type": "script",
                     "path": "u/timoneway/send_notification",
+                    "type": "script",
+                    "is_trigger": false,
                     "input_transforms": {
+                        "audio_result": {
+                            "expr": "results.c",
+                            "type": "javascript"
+                        },
                         "script_result": {
-                            "type": "javascript",
-                            "expr": "results.a"
+                            "expr": "results.a",
+                            "type": "javascript"
                         }
-                    },
-                    "is_trigger": false
-                },
-                "continue_on_error": false
+                    }
+                }
+            },
+            {
+                "id": "d",
+                "value": {
+                    "path": "u/timoneway/generate_rss",
+                    "type": "script",
+                    "is_trigger": false,
+                    "input_transforms": {
+                        "audio_result": {
+                            "expr": "results.c",
+                            "type": "javascript"
+                        },
+                        "script_result": {
+                            "expr": "results.a",
+                            "type": "javascript"
+                        }
+                    }
+                }
             }
-        ],
-        "same_worker": false
+        ]
     },
     "schema": {
         "$schema": "https://json-schema.org/draft/2020-12/schema",

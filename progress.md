@@ -17,7 +17,23 @@
    - Repository: Cloned podcast-project, set up .env with Supabase and YouTube API keys.
    - Basic Postgres: Configured local PostgreSQL for Supabase alternative.
 
+2. **Local First Setup** (Completed 2025-10-15):
+   - Installed core dev tools (gcc, FFmpeg).
+   - Set up containerization with Docker for Windmill and PostgreSQL.
+   - Initialized Git and recorded progress.md.
+
+3. **Python Environment & LLM Content Generation** (Completed 2025-10-16):
+   - Installed Python 3.12 and uv, set up podcast-env with dependencies.
+   - Developed generate_podcast_script.py for LLM-based script generation.
+   - Configured Windmill workflow with notification script.
+
+4. **TTS and RSS Generation** (Completed 2025-10-17):
+   - Implemented generate_podcast_audio.py using gTTS for audio generation.
+   - Fixed AttributeError in send_notification.py by handling None audio_result.
+   - Added generate_rss.py to create Podcast RSS feed.
+   - Updated workflow to include TTS, RSS, and notification.
+
 ## Next Steps
-- Develop LLM content generation script to create podcast scripts from raw_data.
-- Deploy TTS (text-to-speech) script for audio generation.
-- Sync progress to Git for version control.
+- Test full workflow (script, audio, RSS, notification).
+- Evaluate cloud deployment options (e.g., Oracle Cloud Free Tier).
+- Finalize POC and document results.
