@@ -1,5 +1,5 @@
 from __future__ import annotations
-
+import wmill
 import os
 import logging
 from datetime import datetime, UTC  # 添加 UTC 導入
@@ -12,9 +12,9 @@ logger = logging.getLogger(__name__)
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 load_dotenv()
-SUPABASE_URL = os.getenv("SUPABASE_URL")
-SUPABASE_KEY = os.getenv("SUPABASE_KEY")
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+SUPABASE_URL = wmill.get_variable("u/timoneway/SUPABASE_URL")
+SUPABASE_KEY = wmill.get_variable("u/timoneway/SUPABASE_KEY")
+GROQ_API_KEY = wmill.get_variable("u/timoneway/GROQ_API_KEY")
 
 if not all([SUPABASE_URL, SUPABASE_KEY, GROQ_API_KEY]):
     missing = [k for k, v in {"SUPABASE_URL": SUPABASE_URL,

@@ -1,3 +1,17 @@
 *.env
 postgres-data/
 windmill-home/
+# Node modules
+node_modules/
+
+# Audio files
+*.mp3
+
+# Backup files
+*.sql
+
+# RSS files
+*.xml
+
+# Package files (optional, depends on your needs)
+package-lock.json

@@ -4,6 +4,7 @@
 - Objective: Build an AI-driven automated investment podcast system.
 - Components:
   - Local: Ubuntu 24.04+ + Docker + Windmill + PostgreSQL (Supabase alternative) + Python (podcast-env) + Cursor.
+  - Cloud: Oracle Cloud Free Tier + GitHub Pages.
 - Tools:
   - Core Dev Tools: gcc, FFmpeg, curl.
   - Containerization: Docker for isolated environments.
@@ -35,10 +36,15 @@
 
 5. **POC Completion** (Completed 2025-10-17):
    - Tested full workflow (script, audio, RSS, notification).
-   - Optimized RSS with public URL for future cloud deployment.
+   - Optimized RSS with public URL for cloud deployment.
    - Documented final POC results.
 
+6. **Cloud Deployment** (Completed 2025-10-17):
+   - Deployed Windmill and PostgreSQL to Oracle Cloud Free Tier.
+   - Published audio and RSS files via GitHub Pages.
+   - Automated upload to GitHub Pages with upload_to_docs.py.
+
 ## Next Steps
-- Evaluate cloud deployment options (e.g., Oracle Cloud Free Tier, DigitalOcean Droplet).
-- Deploy RSS and audio files to a public server for podcast distribution.
-- Scale up content generation with additional data sources.
+- Monitor cloud performance and optimize costs.
+- Expand content with additional data sources (e.g., Twitter sentiment analysis).
+- Submit Podcast to platforms (e.g., Spotify, Apple Podcasts).
