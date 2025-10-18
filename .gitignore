@@ -15,3 +15,19 @@ node_modules/
 
 # Package files (optional, depends on your needs)
 package-lock.json
+# 忽略 Node.js 相關檔案
+node_modules/
+package.json
+package-lock.json
+*.js
+*.d.ts
+*.js.map
+*.cjs
+
+# 忽略其他不必要檔案
+supabase/
+*.md
+LICENSE
+LICENSE.md
+LICENSE.txt
+*.log
