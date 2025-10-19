@@ -31,3 +31,39 @@ LICENSE
 LICENSE.md
 LICENSE.txt
 *.log
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+*.egg-info/
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Podcast outputs
+podcast_*.mp3
+podcast_rss_*.xml
+
+# Temporary and cache files
+*.body
+*.cache
+*.log
+*.tmp
+*.bak
+
+# Git and IDE
+.git/
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Miscellaneous
+node_modules/
+*.js
+*.ts
